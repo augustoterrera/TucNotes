@@ -1,0 +1,11 @@
+#Registrar un usuario
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "username": "augustoterrera",
+    "email": "augustoterrera@gmail.com",
+    "password": "admin",
+    "name": "Augusto",
+    "lastname": "Terrera"
+}
