@@ -1,4 +1,4 @@
-import Validations from "../../validations/userValidations.js"
+import Validations from "../validations/userValidations.js"
 import User from "../models/user.js"
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
