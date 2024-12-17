@@ -5,12 +5,12 @@ import jwt from 'jsonwebtoken'
 
 
 const loginUser = async (req, res) => {
-    const { username, email, password } = req.body
+    const { username, password } = req.body
     const secreto = process.env.SECRET_KEY
     try {
         Validations.password(password)
 
-        const user = await User.findOne({ $or: [{ username: username }, { email: email }] })
+        const user = await User.findOne({ username: username })
 
         if (!user) {
             return res.status(400).json({ message: 'User not found' });
