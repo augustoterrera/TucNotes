@@ -24,7 +24,10 @@ const Login = () => {
             const response = await axios.post('http://localhost:3000/login', {
                 username: form.username,
                 password: form.password,
-            });
+            },
+                {
+                    withCredentials: true // Esto asegura que las cookies se envíen
+                });
 
             if (response.status === 200) {
                 alert("Login exitoso");

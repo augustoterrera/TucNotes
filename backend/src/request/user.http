@@ -20,7 +20,7 @@ Content-Type: application/json
     "password": "adminroot"
 }
 
-###Sesion Iniciada
+###Ruta protegida
 
 GET http://localhost:3000/protected
 

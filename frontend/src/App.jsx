@@ -3,6 +3,7 @@ import './App.css'
 import Inicio from './pages/Inicio/Inicio'
 import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 function App() {
 
@@ -15,8 +16,13 @@ function App() {
       </nav>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/inicio' element={<Inicio />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/inicio' element=
+        {
+          <ProtectedRoute>
+            <Inicio/>
+          </ProtectedRoute>
+        } />
         <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
       </Routes>
     </>

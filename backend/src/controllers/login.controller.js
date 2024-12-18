@@ -16,12 +16,12 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: 'User not found' });
         }
 
-        const isValid = await bcrypt.compareSync(password, user.password)
+        const isValid = bcrypt.compareSync(password, user.password)
         const token = jwt.sign({ id: user._id, username: user.username, name: user.name, lastname: user.lastname }, secreto, { expiresIn: '1h' })
 
         if (!isValid) throw new Error('Password is invalid')
 
-        res.status(200).cookie('access_token', token, { httpOnly: true, sameSite: 'strict', maxAge: 1000 * 60 * 60 }).json({ message: 'Login successfully', user: user.username })
+        res.status(200).cookie('access_token', token, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 }).json({ message: 'Login successfully', user: user.username })
     } catch (error) {
         res.json({ message: 'Error interno del servidor: ' + error })
     }
@@ -45,21 +45,16 @@ const registerUser = async (req, res) => {
 }
 
 const protectedUser = async (req, res) => {
-    const token = req.cookies.access_token
-    const secreto = process.env.SECRET_KEY
-    if (!token) {
-        return res.status(403).send('Access not authorized')
-    }
-    try {
-        const data = jwt.verify(token, secreto)
-        res.send(`Hola ${data.name} ${data.lastname} \nUsuario: ${data.username} \nToken: ${token}`)
-    } catch (error) {
-        res.status(401).send('Access not authorized')
-    }
+    const user = req.user
+    res.status(200).json({
+        name: user.name,
+        lastname: user.lastname,
+        username: user.username,
+    });
 }
 
 const logoutUser = async (req, res) => {
-    res.clearCookie('access_token').json({message: 'Logout successfull'})
+    res.clearCookie('access_token').json({ message: 'Logout successfull' })
 }
 
 export { loginUser, registerUser, protectedUser, logoutUser }
