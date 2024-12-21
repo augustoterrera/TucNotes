@@ -1,0 +1,18 @@
+#Create notes
+POST  http://localhost:3000/createNote
+Content-Type: application/json
+
+{   
+    "userId": "675c4d9e45a4e90b4cd582c1",
+    "title": "Note 1",
+    "content": "This is note 1"
+}
+
+###GET NOTES
+
+GET http://localhost:3000/getNotes
+Content-Type: application/json
+
+{   
+    "userId": "675c4d9e45a4e90b4cd582c1"
+}

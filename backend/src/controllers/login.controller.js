@@ -50,6 +50,7 @@ const registerUser = async (req, res) => {
 const protectedUser = async (req, res) => {
     const user = req.user
     res.status(200).json({
+        id: user.id,
         name: user.name,
         lastname: user.lastname,
         username: user.username,
