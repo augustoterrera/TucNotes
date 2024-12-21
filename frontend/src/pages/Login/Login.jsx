@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext.jsx'
 
 const Login = () => {
     const [form, setForm] = useState({
@@ -8,6 +9,7 @@ const Login = () => {
         password: "",
     });
     const navigate = useNavigate();
+    const { setIsAuthenticated } = useContext(AuthContext)
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -25,8 +27,8 @@ const Login = () => {
             });
 
             if (response.status === 200) {
-                
-                    navigate('/inicio')
+                setIsAuthenticated(true)
+                navigate('/inicio')
             }
         } catch (error) {
             console.error("Error en la solicitud:", error);
