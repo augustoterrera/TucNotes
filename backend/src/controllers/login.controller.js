@@ -17,13 +17,16 @@ const loginUser = async (req, res) => {
         }
 
         const isValid = bcrypt.compareSync(password, user.password)
-        const token = jwt.sign({ id: user._id, username: user.username, name: user.name, lastname: user.lastname }, secreto, { expiresIn: '1h' })
 
-        if (!isValid) throw new Error('Password is invalid')
+        if (!isValid) {
+            return res.status(400).json({ message: 'Password is invalid' });
+        }
+
+        const token = jwt.sign({ id: user._id, username: user.username, name: user.name, lastname: user.lastname }, secreto, { expiresIn: '1h' })
 
         res.status(200).cookie('access_token', token, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 }).json({ message: 'Login successfully', user: user.username })
     } catch (error) {
-        res.json({ message: 'Error interno del servidor: ' + error })
+        res.json({ message: 'Error interno del servidor: ' + error.message })
     }
 }
 const registerUser = async (req, res) => {

@@ -1,5 +1,4 @@
 import { Routes, Route, Link } from 'react-router-dom'
-import './App.css'
 import Inicio from './pages/Inicio/Inicio'
 import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
@@ -12,7 +11,8 @@ function App() {
       <h1>Mi aplicacion</h1>
       <nav>
         <Link to="/">Home</Link> |
-        <Link to="/login">Login</Link>
+        <Link to="/login">Login</Link>|
+        <Link to="/inicio">Inicio</Link>
       </nav>
       <Routes>
         <Route path='/' element={<Home />} />
